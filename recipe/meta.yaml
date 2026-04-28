@@ -1,0 +1,50 @@
+{% set name = "azure-mgmt-batchai" %}
+{% set version = "7.0.0b1" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
+  sha256: 993eafbe359bab445642276e811db6f44f09795122a1b3c3dd703f9c333723a6
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  host:
+    - python
+    - wheel
+    - pip
+    - setuptools
+  run:
+    - python
+    - msrest>=0.6.21
+    - azure-common >=1.1,<2
+    - azure-mgmt-core >=1.2.0,<2.0.0
+
+test:
+  imports:
+    - azure.mgmt.batchai
+    - azure.mgmt.batchai.aio
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/Azure/azure-sdk-for-python
+  summary: Microsoft Azure Batch AI Management Client Library for Python
+  license: MIT
+  license_file: LICENSE
+  license_family: MIT
+  description: Microsoft Azure Batch AI Management Client Library for Python
+  dev_url: https://github.com/Azure/azure-sdk-for-python
+  doc_url: https://github.com/Azure/azure-sdk-for-python
+  
+
+extra:
+  recipe-maintainers:
+    - janjagusch
